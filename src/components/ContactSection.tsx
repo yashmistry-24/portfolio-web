@@ -11,7 +11,7 @@ export default function ContactSection() {
 
       <div className="max-w-xl mx-auto bg-[#121314] rounded-xl border border-cyan-700 p-8 shadow-md">
         <form
-          action="mailto:your.email@example.com"
+          action="mailto:24yashmistry@gmail.com"
           method="POST"
           encType="text/plain"
           className="flex flex-col space-y-6"
