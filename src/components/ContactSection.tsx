@@ -66,7 +66,7 @@ export default function ContactSection() {
             <FiGithub size={28} />
           </a>
           <a
-            href="https://www.linkedin.com/in/yash-mahendra-mistry/"
+            href="https://www.linkedin.com/in/yashmahendramistry"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
@@ -75,7 +75,7 @@ export default function ContactSection() {
             <FiLinkedin size={28} />
           </a>
           <a
-            href="mailto:your.email@example.com"
+            href="24yashmistry@gmail.com"
             aria-label="Email"
             className="hover:text-cyan-600 transition"
           >
