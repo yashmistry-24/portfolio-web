@@ -75,7 +75,7 @@ export default function ContactSection() {
             <FiLinkedin size={28} />
           </a>
           <a
-            href="24yashmistry@gmail.com"
+            href="mailto:24yashmistry@gmail.com"
             aria-label="Email"
             className="hover:text-cyan-600 transition"
           >
