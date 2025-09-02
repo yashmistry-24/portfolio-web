@@ -1,7 +1,6 @@
 "use client"
 
 import { motion } from "framer-motion"
-import Image from "next/image"
 
 type Project = {
   title: string
@@ -10,13 +9,6 @@ type Project = {
   github: string
   demo?: string
 }
-
-const fullImageProjects = new Set([
-  "EndoScanAI",
-  "Job Matching and Interview Analysis System",
-  "Research Paper Summarizer",
-  "Twitter Sentiment Analysis Model",
-])
 
 const projects: Project[] = [
   {
@@ -70,93 +62,77 @@ const projects: Project[] = [
   },
 ]
 
-const container = {
-  hidden: {},
+const containerVariants = {
+  hidden: { opacity: 0 },
   visible: {
-    transition: {
-      staggerChildren: 0.2,
-    },
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
   },
 }
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
   visible: { opacity: 1, y: 0, scale: 1 },
 }
 
 export default function ProjectsSection() {
   return (
-    <section
-      className="py-20 px-6 md:px-20 bg-[#0b0c0f] text-gray-200"
-      id="projects"
-    >
-      <h2 className="text-4xl font-extrabold mb-20 text-center text-cyan-400 drop-shadow-md">
+    <section id="projects" className="bg-[#0b0c0f] text-gray-200 py-16 px-6 md:px-20">
+      <h2 className="text-4xl font-extrabold mb-16 text-center text-cyan-400 drop-shadow-md">
         Projects
       </h2>
 
       <motion.div
-        className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-14"
-        variants={container}
+        className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10"
+        variants={containerVariants}
         initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
+        animate="visible"
       >
-        {projects.map(({ title, description, image, github, demo }) => {
-          const isFullImage = fullImageProjects.has(title)
-
-          return (
-            <motion.div
-              key={title}
-              variants={cardVariants}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0 0 25px #00bcd4",
-                zIndex: 10,
-              }}
-              className="bg-[#121314] rounded-xl border border-cyan-700 shadow-md flex flex-col overflow-hidden transition-shadow duration-300"
-            >
-              <div
-                className={`relative w-full overflow-hidden rounded-t-xl ${
-                  isFullImage ? "h-60" : "h-52"
-                } shadow-inner`}
-              >
-                <Image
-                  src={image}
-                  alt={title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  style={{ objectFit: isFullImage ? "contain" : "cover" }}
-                  className="transition-transform duration-500 ease-in-out hover:scale-105"
-                  priority={false}
-                />
-              </div>
-              <div className="p-6 flex flex-col flex-grow justify-between">
-                <h3 className="text-2xl font-semibold mb-3 text-cyan-400">{title}</h3>
-                <p className="text-gray-400 flex-grow mb-6 leading-relaxed">{description}</p>
-                <div className="flex space-x-4">
+        {projects.map(({ title, description, image, github, demo }) => (
+          <motion.a
+            key={title}
+            href={demo || github}
+            target="_blank"
+            rel="noopener noreferrer"
+            variants={cardVariants}
+            whileHover={{ scale: 1.03, boxShadow: "0 0 20px #00bcd4", zIndex: 10 }}
+            className="bg-[#121314] rounded-xl border border-cyan-700 shadow-md overflow-hidden flex flex-col transition-shadow duration-300 cursor-pointer"
+          >
+            <img
+              src={image}
+              alt={title}
+              className="h-48 w-full object-cover"
+              loading="lazy"
+              draggable={false}
+            />
+            <div className="p-6 flex flex-col justify-between flex-grow">
+              <h3 className="text-2xl font-semibold mb-3 text-cyan-400">{title}</h3>
+              <p className="text-gray-400 flex-grow mb-6 leading-relaxed">{description}</p>
+              <div className="flex space-x-4">
+                <a
+                  href={github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white font-semibold shadow-md transition-colors text-sm"
+                  onClick={e => e.stopPropagation()}
+                >
+                  GitHub
+                </a>
+                {demo && (
                   <a
-                    href={github}
+                    href={demo}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 rounded-lg text-white font-semibold shadow-md transition-colors"
+                    className="px-4 py-2 bg-cyan-700 hover:bg-cyan-600 rounded-lg text-white font-semibold shadow-md transition-colors text-sm"
+                    onClick={e => e.stopPropagation()}
                   >
-                    GitHub
+                    Demo
                   </a>
-                  {demo && (
-                    <a
-                      href={demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2 bg-cyan-700 hover:bg-cyan-600 rounded-lg text-white font-semibold shadow-md transition-colors"
-                    >
-                      Demo
-                    </a>
-                  )}
-                </div>
+                )}
               </div>
-            </motion.div>
-          )
-        })}
+            </div>
+          </motion.a>
+        ))}
       </motion.div>
     </section>
   )
